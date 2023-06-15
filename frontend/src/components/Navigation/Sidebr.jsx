@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-Sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -28,16 +29,18 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography>{title}</Typography>
-      <Link to={to} />
+      <Link to={to}>
+        <Typography>{title}</Typography>
+      </Link>
     </MenuItem>
   );
 };
+
 const Sidebr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("dashboard");
+  const [selected, setSelected] = useState("");
 
   return (
     <Sidebar collapsed={isCollapsed}>
@@ -69,15 +72,6 @@ const Sidebr = () => {
 
         {!isCollapsed && (
           <Box mb="25px">
-            {/* <Box display="flex" justifyContent="center" alignItems="center">
-              <img
-                alt="profile-user"
-                width="100px"
-                height="100px"
-                src={`../../assets/logo192.png`}
-                style={{ cursor: "pointer", borderRadius: "50%" }}
-              />
-            </Box> */}
             <Box textAlign="center">
               <Typography
                 variant="h2"
@@ -97,7 +91,7 @@ const Sidebr = () => {
         <Box paddingLeft={isCollapsed ? undefined : "10%"}>
           <Item
             title="HOME"
-            to="/dashboard"
+            to="/"
             icon={<HomeOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
@@ -106,19 +100,19 @@ const Sidebr = () => {
           <Typography
             variant="h6"
             color={colors.grey[300]}
-            sx={{ m: "15px 0 5px 20px" }}
+            sx={{ margin: "15px 0 5px 20px" }}
           >
             Data
           </Typography>
           <Item
-            title="Team Portfolio"
-            to="/team"
+            title="Property Portfolio"
+            to="/Property"
             icon={<PeopleOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
           />
           <Item
-            title="Contacts Info"
+            title="Maintanance Request"
             to="/contacts"
             icon={<ContactsOutlinedIcon />}
             selected={selected}
@@ -140,15 +134,15 @@ const Sidebr = () => {
             Pages
           </Typography>
           <Item
-            title="Profile Form"
-            to="/form"
+            title="Work order Creation"
+            to="../Form"
             icon={<PersonOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
           />
           <Item
             title="Calendar"
-            to="/calendar"
+            to="/Property"
             icon={<CalendarTodayOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
@@ -190,7 +184,7 @@ const Sidebr = () => {
             setSelected={setSelected}
           />
           <Item
-            title="Geography Chart"
+            title="Properties Map"
             to="/geography"
             icon={<MapOutlinedIcon />}
             selected={selected}
@@ -201,4 +195,5 @@ const Sidebr = () => {
     </Sidebar>
   );
 };
+
 export default Sidebr;

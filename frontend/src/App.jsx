@@ -3,22 +3,23 @@ import { Routes, Route } from "react-router-dom";
 import * as Pages from "./Pages";
 import { CssBaseline, ThemeProvider, Box } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import { Topbar, Sidebar } from "./components";
+import { Topbar, Sidebr } from "./components";
+import Form from "./components/Form";
 
 import "./App.css";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [isSidebr, setIsSidebr] = useState(true);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
-          <Topbar setIsSidebar={setIsSidebar} />
+          <Topbar setIsSidebr={setIsSidebr} />
           <main className="content" style={{ display: "flex" }}>
-            {isSidebar && <Sidebar isSidebar={isSidebar} />}
+            {isSidebr && <Sidebr isSidebr={isSidebr} />}
             <Box flexGrow={1}>
               <Routes>
                 <Route path="/" element={<Pages.Home />} />
@@ -33,6 +34,7 @@ function App() {
                 />
                 <Route path="/Maintainance" element={<Pages.Maintainance />} />
                 <Route path="/Property" element={<Pages.Property />} />
+                <Route path="/form" element={<Form />} />
               </Routes>
             </Box>
           </main>
