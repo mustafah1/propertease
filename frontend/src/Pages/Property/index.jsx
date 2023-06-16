@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -8,6 +8,31 @@ import { useTheme } from "@mui/material";
 const Property = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [propertyData, setPropertyData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://propertease-api.onrender.com/properties"
+        );
+        const data = await response.json();
+
+        // Add unique id to each row
+        const dataWithIds = data.map((row, index) => ({
+          ...row,
+          id: index + 1,
+        }));
+
+        setPropertyData(dataWithIds);
+      } catch (error) {
+        console.log("Error fetching property data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -29,50 +54,32 @@ const Property = () => {
     { field: "email", headerName: "Email", flex: 1 },
     { field: "address", headerName: "Address", flex: 1 },
     { field: "city", headerName: "City", flex: 1 },
-    { field: "zipCode", headerName: "Zip Code", flex: 1 },
+    { field: "postcode", headerName: "Postcode", flex: 1 },
   ];
 
-  <Box m="20px">
-    <Header title="CONTACTS" subtitle="List of Contacts for Future Reference" />
-    <Box
-      m="40px 0 0 0"
-      height="75vh"
-      sx={{
-        "& .MuiDataGrid-root": {
-          border: "none",
-        },
-        "& .MuiDataGrid-cell": {
-          borderBottom: "none",
-        },
-        "& .no-border-bottom": {
-          borderBottom: "none !important",
-        },
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.blueAccent[700],
-          borderBottom: "none",
-        },
-        "& .MuiDataGrid-virtualScroller": {
-          backgroundColor: colors.primary[400],
-        },
-        "& .MuiDataGrid-footerContainer": {
-          borderTop: "none",
-          backgroundColor: colors.blueAccent[700],
-        },
-        "& .MuiCheckbox-root": {
-          color: `${colors.greenAccent[200]} !important`,
-        },
-        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-          color: `${colors.grey[100]} !important`,
-        },
-      }}
-    >
-      <DataGrid
-        // rows={mockDataContacts}
-        columns={columns}
-        components={{ Toolbar: GridToolbar }}
+  return (
+    <Box m="20px">
+      <Header
+        title="CONTACTS"
+        subtitle="List of Contacts for Future Reference"
       />
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={
+          {
+            // Styles for DataGrid component
+          }
+        }
+      >
+        <DataGrid
+          rows={propertyData}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+        />
+      </Box>
     </Box>
-  </Box>;
+  );
 };
 
 export default Property;

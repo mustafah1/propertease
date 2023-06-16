@@ -24,10 +24,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Pages.Home />} />
                 <Route path="/ifc" element={<Pages.IfcViewer />} />
-                <Route
-                  path="/LandlordDashboard"
-                  element={<Pages.LandlordDashboard />}
-                />
+
                 <Route
                   path="/TenantDashboard"
                   element={<Pages.TenantDashboard />}

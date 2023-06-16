@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
-// import { IfcViewerAPI } from "web-ifc-viewer";
-// import * as THREE from "three";
+import { IfcViewerAPI } from "web-ifc-viewer";
+import * as THREE from "three";
 
 const IfcViewer = ({ ifcProject }) => {
   const containerRef = useRef();
